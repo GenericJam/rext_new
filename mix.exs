@@ -1,17 +1,17 @@
-defmodule RectNew.MixProject do
+defmodule RextNew.MixProject do
   use Mix.Project
 
   @version "0.1.0"
-  @source_url "https://github.com/genericjam/rect_new"
+  @source_url "https://github.com/genericjam/rext_new"
 
   def project do
     [
-      app: :rect_new,
+      app: :rext_new,
       version: @version,
       elixir: "~> 1.20",
       deps: deps(),
       aliases: aliases(),
-      description: "Project generator for rect desktop apps (`mix rect.new`).",
+      description: "Project generator for rext desktop apps (`mix rext.new`).",
       package: package(),
       docs: docs(),
       source_url: @source_url

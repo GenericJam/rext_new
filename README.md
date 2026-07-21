@@ -1,15 +1,15 @@
-# rect_new
+# rext_new
 
-Project generator for [rect](https://github.com/GenericJam/rect) desktop apps —
+Project generator for [rext](https://github.com/GenericJam/rext) desktop apps —
 a BEAM-on-desktop UI framework for Elixir.
 
 ```bash
-mix rect.new my_app
+mix rext.new my_app
 ```
 
-Scaffolds a minimal project wired to `rect`: a counter window, an app module
-declaring its windows (`Rect.App`), config pointing `:rect, :app` at it, and a
-`.mcp.json` so an agent session gets rect's tools with zero setup.
+Scaffolds a minimal project wired to `rext`: a counter window, an app module
+declaring its windows (`Rext.App`), config pointing `:rext, :app` at it, and a
+`.mcp.json` so an agent session gets rext's tools with zero setup.
 
-The shipped form is a Mix archive (`mix archive.install hex rect_new`), same as
+The shipped form is a Mix archive (`mix archive.install hex rext_new`), same as
 `mob_new`. See `CLAUDE.md` for details.

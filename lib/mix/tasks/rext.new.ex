@@ -1,17 +1,17 @@
-defmodule Mix.Tasks.Rect.New do
-  @shortdoc "Generate a new rect desktop app"
+defmodule Mix.Tasks.Rext.New do
+  @shortdoc "Generate a new rext desktop app"
   @moduledoc """
-  Scaffold a new rect desktop application.
+  Scaffold a new rext desktop application.
 
-      mix rect.new my_app
+      mix rext.new my_app
 
-  Produces a minimal project wired to `rect`, with a counter window, an app
-  module declaring its windows, config pointing `:rect, :app` at it, and a
-  `.mcp.json` so an agent session gets rect's tools with zero setup (mirrors
+  Produces a minimal project wired to `rext`, with a counter window, an app
+  module declaring its windows, config pointing `:rext, :app` at it, and a
+  `.mcp.json` so an agent session gets rext's tools with zero setup (mirrors
   mob_new's plan — the agent story is present from generation onward).
 
   This is the prototype's inline generator. The shipped form is a Mix archive
-  (`mix archive.install hex rect_new`), same as `mob_new`.
+  (`mix archive.install hex rext_new`), same as `mob_new`.
   """
   use Mix.Task
 
@@ -33,13 +33,13 @@ defmodule Mix.Tasks.Rect.New do
 
         cd #{name}
         mix deps.get
-        (cd deps/rect/native/macos && ./build.sh)   # build the render backend
-        mix rect.run                                 # open the window
-        mix rect.connect                             # drive it from IEx / an agent
+        (cd deps/rext/native/macos && ./build.sh)   # build the render backend
+        mix rext.run                                 # open the window
+        mix rext.connect                             # drive it from IEx / an agent
     """)
   end
 
-  def run(_), do: Mix.raise("usage: mix rect.new NAME")
+  def run(_), do: Mix.raise("usage: mix rext.new NAME")
 
   defp write(base, rel, contents) do
     path = Path.join(base, rel)
@@ -63,8 +63,8 @@ defmodule Mix.Tasks.Rect.New do
 
       defp deps do
         [
-          {:rect, path: "../rect"},
-          {:rect_dev, path: "../rect_dev", only: :dev, runtime: false}
+          {:rext, path: "../rext"},
+          {:rext_dev, path: "../rext_dev", only: :dev, runtime: false}
         ]
       end
     end
@@ -75,8 +75,8 @@ defmodule Mix.Tasks.Rect.New do
     """
     import Config
 
-    # rect boots this app's windows (see Rect.App).
-    config :rect, :app, #{mod}
+    # rext boots this app's windows (see Rext.App).
+    config :rext, :app, #{mod}
     """
   end
 
@@ -92,7 +92,7 @@ defmodule Mix.Tasks.Rect.New do
     end
 
     defmodule #{mod} do
-      use Rect.App
+      use Rext.App
 
       @impl true
       def windows do
@@ -105,10 +105,10 @@ defmodule Mix.Tasks.Rect.New do
   defp counter_window_ex(mod) do
     """
     defmodule #{mod}.CounterWindow do
-      use Rect.Window
+      use Rext.Window
 
       @impl true
-      def mount(_params, socket), do: {:ok, Rect.Socket.assign(socket, :count, 0)}
+      def mount(_params, socket), do: {:ok, Rext.Socket.assign(socket, :count, 0)}
 
       @impl true
       def render(assigns) do
@@ -124,7 +124,7 @@ defmodule Mix.Tasks.Rect.New do
 
       @impl true
       def handle_event("click", %{"tag" => "inc"}, socket) do
-        {:noreply, Rect.Socket.update(socket, :count, &(&1 + 1))}
+        {:noreply, Rext.Socket.update(socket, :count, &(&1 + 1))}
       end
     end
     """
@@ -134,9 +134,9 @@ defmodule Mix.Tasks.Rect.New do
     """
     {
       "mcpServers": {
-        "rect": {
+        "rext": {
           "command": "mix",
-          "args": ["rect_mcp.server"]
+          "args": ["rext_mcp.server"]
         }
       }
     }
