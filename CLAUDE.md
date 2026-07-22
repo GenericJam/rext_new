@@ -7,9 +7,9 @@ This file covers only what's specific to rext_new.
 ## What it does
 
 `mix rext.new my_app` scaffolds a minimal rext project: a counter window, an app
-module declaring its windows (`Rext.App`), `config :rext, :app`, and a
-`.mcp.json` so an agent session gets rext's tools with zero setup (the agent
-story is present from generation onward, mirroring `mob_new`).
+module declaring its windows (`Rext.App`), and `config :rext, :app`. Agents drive
+the generated app via `mix rext.connect` + `Rext.Test` over dist — no `.mcp.json`
+/ MCP server (deliberately not pursued; see `../rext/decisions`).
 
 The task takes a name or a path; it derives the app name from the basename
 (`Macro.underscore`) and the module from that (`Macro.camelize`). Templates are

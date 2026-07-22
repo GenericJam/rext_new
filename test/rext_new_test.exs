@@ -9,14 +9,13 @@ defmodule Mix.Tasks.Rext.NewTest do
     %{dir: dir}
   end
 
-  test "generates a project with app/window/config/mcp files", %{dir: dir} do
+  test "generates a project with app/window/config files", %{dir: dir} do
     target = Path.join(dir, "cool_app")
     capture_io(fn -> Mix.Tasks.Rext.New.run([target]) end)
 
     for rel <- [
           "mix.exs",
           "config/config.exs",
-          ".mcp.json",
           "lib/cool_app/application.ex",
           "lib/cool_app/counter_window.ex"
         ] do

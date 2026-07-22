@@ -5,10 +5,9 @@ defmodule Mix.Tasks.Rext.New do
 
       mix rext.new my_app
 
-  Produces a minimal project wired to `rext`, with a counter window, an app
-  module declaring its windows, config pointing `:rext, :app` at it, and a
-  `.mcp.json` so an agent session gets rext's tools with zero setup (mirrors
-  mob_new's plan — the agent story is present from generation onward).
+  Produces a minimal project wired to `rext`: a counter window, an app module
+  declaring its windows, and config pointing `:rext, :app` at it. Drive the
+  generated app with an agent via `mix rext.connect` + `Rext.Test` over dist.
 
   This is the prototype's inline generator. The shipped form is a Mix archive
   (`mix archive.install hex rext_new`), same as `mob_new`.
@@ -25,7 +24,6 @@ defmodule Mix.Tasks.Rext.New do
     write(base, "config/config.exs", config_exs(mod))
     write(base, "lib/#{app}/application.ex", application_ex(mod))
     write(base, "lib/#{app}/counter_window.ex", counter_window_ex(mod))
-    write(base, ".mcp.json", mcp_json())
 
     Mix.shell().info("""
 
@@ -127,19 +125,6 @@ defmodule Mix.Tasks.Rext.New do
         {:noreply, Rext.Socket.update(socket, :count, &(&1 + 1))}
       end
     end
-    """
-  end
-
-  defp mcp_json do
-    """
-    {
-      "mcpServers": {
-        "rext": {
-          "command": "mix",
-          "args": ["rext_mcp.server"]
-        }
-      }
-    }
     """
   end
 end
