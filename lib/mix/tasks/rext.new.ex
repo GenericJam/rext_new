@@ -85,7 +85,11 @@ defmodule Mix.Tasks.Rext.New do
 
       @impl true
       def start(_type, _args) do
-        Supervisor.start_link([], strategy: :one_for_one, name: #{mod}.Supervisor)
+        with {:ok, pid} <-
+               Supervisor.start_link([], strategy: :one_for_one, name: #{mod}.Supervisor) do
+          Rext.boot(#{mod})
+          {:ok, pid}
+        end
       end
     end
 
