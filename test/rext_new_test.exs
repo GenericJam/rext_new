@@ -39,6 +39,16 @@ defmodule Mix.Tasks.Rext.NewTest do
     assert config =~ "config :rext, :app, CoolApp"
   end
 
+  test "the generated app boots its own windows (not just leaves them to dev tooling)", %{
+    dir: dir
+  } do
+    target = Path.join(dir, "cool_app")
+    capture_io(fn -> Mix.Tasks.Rext.New.run([target]) end)
+
+    application = File.read!(Path.join(target, "lib/cool_app/application.ex"))
+    assert application =~ "Rext.boot(CoolApp)"
+  end
+
   test "requires exactly one name argument" do
     assert_raise Mix.Error, fn -> Mix.Tasks.Rext.New.run([]) end
   end
