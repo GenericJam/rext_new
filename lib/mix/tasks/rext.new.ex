@@ -116,10 +116,10 @@ defmodule Mix.Tasks.Rext.New do
       def render(assigns) do
         %{
           type: :column,
-          props: %{gap: :space_lg, padding: :space_xl, background: :background},
+          props: %{spacing: :space_lg, padding: :space_xl, background: :background},
           children: [
-            %{type: :text, props: %{text: "Count: \#{assigns.count}", size: 34, color: :on_background}, children: []},
-            %{type: :button, props: %{label: "Increment", on_click: :inc, color: :primary}, children: []}
+            %{type: :text, props: %{text: "Count: \#{assigns.count}", font_size: 34, text_color: :on_background}, children: []},
+            %{type: :button, props: %{text: "Increment", on_click: :inc, background: :primary}, children: []}
           ]
         }
       end
